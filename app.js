@@ -23,15 +23,23 @@ new Vue({
       if (this.checkWin()) {
         return;
       }
-
       tthis.monsterAttacks();
     },
-    heal: function () {},
-    giveUp: function () {},
+    heal: function () {
+      if (this.playerHealth <= 90) {
+        this.playerHealth += 10;
+      } else {
+        this.playerHealth = 100;
+      }
+      this.monsterAttacks();
+    },
+    giveUp: function () {
+      this.gameIsRunning = false;
+    },
     monsterAttacks: function () {
       this.playerHealth -= this.calculateDamge(5, 12);
       this.checkWin();
-    }, 
+    },
     calculateDamge: function (min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
     },
